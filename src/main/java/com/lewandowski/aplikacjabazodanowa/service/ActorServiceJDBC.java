@@ -18,10 +18,10 @@ public class ActorServiceJDBC implements ActorService {
     private final String INSERT_ACTOR = "INSERT INTO Actor(firstName, lastName, birthYear, movieAppearances) VALUES (?, ?, ?, ?)";
     private final String SELECT_ACTOR = "SELECT id, firstName, lastName, birthYear, movieAppearances FROM Actor";
     private final String DELETE_ACTOR = "DELETE FROM Actor WHERE id = ?";
-    private final String UPDATE_ACTOR_FIRSTNAME = "UPDATE Actor SET firstName = ?";
-    private final String UPDATE_ACTOR_LASTNAME = "UPDATE Actor SET lastName = ?";
-    private final String UPDATE_ACTOR_BIRTHYEAR = "UPDATE Actor SET birthYear = ?";
-    private final String UPDATE_ACTOR_MOVIEAPPEARANCES = "UPDATE Actor SET movieAppearances = ?";
+    private final String UPDATE_ACTOR_FIRSTNAME = "UPDATE Actor SET firstName = ? WHERE id = ?";
+    private final String UPDATE_ACTOR_LASTNAME = "UPDATE Actor SET lastName = ? WHERE id = ?";
+    private final String UPDATE_ACTOR_BIRTHYEAR = "UPDATE Actor SET birthYear = ? WHERE id = ?";
+    private final String UPDATE_ACTOR_MOVIEAPPEARANCES = "UPDATE Actor SET movieAppearances = ? WHERE id = ?";
 
 
     private Connection connection;
@@ -67,7 +67,6 @@ public class ActorServiceJDBC implements ActorService {
 
             insertActorPST = connection.prepareStatement(INSERT_ACTOR);
             selectActorPST = connection.prepareStatement(SELECT_ACTOR);
-            //deleteActorPST = connection.prepareStatement(DELETE_ACTOR);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -158,11 +157,12 @@ public class ActorServiceJDBC implements ActorService {
     }
 
     @Override
-    public void updateActorFirstName(String firstName) {
+    public void updateActorFirstName(String firstName, Long id) {
 
         try {
             updateActorFirstNamePST = connection.prepareStatement(UPDATE_ACTOR_FIRSTNAME);
             updateActorFirstNamePST.setString(1, firstName);
+            updateActorFirstNamePST.setLong(2, id);
             updateActorFirstNamePST.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,11 +170,12 @@ public class ActorServiceJDBC implements ActorService {
     }
 
     @Override
-    public void updateActorLastName(String lastName) {
+    public void updateActorLastName(String lastName, Long id) {
 
         try {
             updateActorLastNamePST = connection.prepareStatement(UPDATE_ACTOR_LASTNAME);
             updateActorLastNamePST.setString(1, lastName);
+            updateActorLastNamePST.setLong(2, id);
             updateActorLastNamePST.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -182,11 +183,12 @@ public class ActorServiceJDBC implements ActorService {
     }
 
     @Override
-    public void updateActorBirthYear(String birthYear) {
+    public void updateActorBirthYear(String birthYear, Long id) {
 
         try {
             updateActorBirthYearPST = connection.prepareStatement(UPDATE_ACTOR_BIRTHYEAR);
             updateActorBirthYearPST.setString(1, birthYear);
+            updateActorBirthYearPST.setLong(2, id);
             updateActorBirthYearPST.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -194,10 +196,11 @@ public class ActorServiceJDBC implements ActorService {
     }
 
     @Override
-    public void updateActorMovieAppearances(int movieAppearances) {
+    public void updateActorMovieAppearances(int movieAppearances, Long id) {
         try {
             updateActorMovieAppearancesPST = connection.prepareStatement(UPDATE_ACTOR_MOVIEAPPEARANCES);
             updateActorMovieAppearancesPST.setInt(1, movieAppearances);
+            updateActorMovieAppearancesPST.setLong(2, id);
             updateActorMovieAppearancesPST.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

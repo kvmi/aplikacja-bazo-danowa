@@ -14,11 +14,11 @@ public interface ActorService {
 
     void deleteActorById(Long id);
 
-    void updateActorFirstName(String firstName);
+    void updateActorFirstName(String firstName, Long id);
 
-    void updateActorLastName(String lastName);
+    void updateActorLastName(String lastName, Long id);
 
-    void updateActorBirthYear(String birthYear);
+    void updateActorBirthYear(String birthYear, Long id);
 
-    void updateActorMovieAppearances(int movieAppearances);
+    void updateActorMovieAppearances(int movieAppearances, Long id);
 }
