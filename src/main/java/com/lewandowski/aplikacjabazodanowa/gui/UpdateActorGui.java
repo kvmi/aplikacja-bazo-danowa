@@ -3,9 +3,11 @@ package com.lewandowski.aplikacjabazodanowa.gui;
 import com.lewandowski.aplikacjabazodanowa.service.ActorService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("update-actor")
@@ -16,12 +18,13 @@ public class UpdateActorGui extends VerticalLayout {
     @Autowired
     public UpdateActorGui(ActorService actorService) {
         this.actorService = actorService;
+        routerLink();
 
         TextField placeholderFieldId = new TextField();
         placeholderFieldId.setPlaceholder("Id");
 
         ComboBox<String> comboBox = new ComboBox<>("Modify");
-        comboBox.setItems("First Name", "Last Name", "Birth Year","Movie Appearances");
+        comboBox.setItems("First Name", "Last Name", "Birth Year", "Movie Appearances");
 
         TextField placeholderFieldModifyValue = new TextField();
         placeholderFieldModifyValue.setPlaceholder("Modify chosen value");
@@ -29,20 +32,28 @@ public class UpdateActorGui extends VerticalLayout {
         Button modifyButton = new Button("Modify");
 
         modifyButton.addClickListener(buttonClickEvent -> {
-            if(comboBox.getValue().equals("First Name")){
+            if (comboBox.getValue().equals("First Name")) {
                 actorService.updateActorFirstName(placeholderFieldModifyValue.getValue(), Long.parseLong(placeholderFieldId.getValue()));
             }
-            if(comboBox.getValue().equals("Last Name")){
+            if (comboBox.getValue().equals("Last Name")) {
                 actorService.updateActorLastName(placeholderFieldModifyValue.getValue(), Long.parseLong(placeholderFieldId.getValue()));
             }
-            if(comboBox.getValue().equals("Birth Year")){
+            if (comboBox.getValue().equals("Birth Year")) {
                 actorService.updateActorBirthYear(placeholderFieldModifyValue.getValue(), Long.parseLong(placeholderFieldId.getValue()));
             }
-            if(comboBox.getValue().equals("Movie Appearances")){
+            if (comboBox.getValue().equals("Movie Appearances")) {
                 actorService.updateActorMovieAppearances(Integer.parseInt(placeholderFieldModifyValue.getValue()), Long.parseLong(placeholderFieldId.getValue()));
             }
         });
 
         add(placeholderFieldId, comboBox, placeholderFieldModifyValue, modifyButton);
+    }
+
+    void routerLink() {
+        Div menu = new Div();
+        menu.add(new RouterLink(" Add-Actor ", AddActorGui.class));
+        menu.add(new RouterLink(" Delete-Actor ", DeleteActorByIdGui.class));
+        menu.add(new RouterLink(" Show-Actor ", ShowActorsGui.class));
+        add(menu);
     }
 }

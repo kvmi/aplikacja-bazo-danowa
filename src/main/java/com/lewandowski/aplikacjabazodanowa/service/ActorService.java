@@ -10,8 +10,6 @@ public interface ActorService {
 
     List<Actor> getActors();
 
-    //void addActors(List<Actor> actors);
-
     void deleteActorById(Long id);
 
     void updateActorFirstName(String firstName, Long id);
@@ -21,4 +19,6 @@ public interface ActorService {
     void updateActorBirthYear(String birthYear, Long id);
 
     void updateActorMovieAppearances(int movieAppearances, Long id);
+
+    void getActorWithTitle();
 }

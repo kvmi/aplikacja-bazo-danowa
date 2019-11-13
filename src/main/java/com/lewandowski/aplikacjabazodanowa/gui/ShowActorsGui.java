@@ -34,6 +34,8 @@ public class ShowActorsGui extends VerticalLayout {
         Div menu = new Div();
         menu.add(new RouterLink(" Add-Actor ", AddActorGui.class));
         menu.add(new RouterLink(" Delete-Actor ", DeleteActorByIdGui.class));
+        menu.add(new RouterLink(" Update-Actor ", UpdateActorGui.class));
+        menu.add(new RouterLink(" Show-Movies ", ShowMoviesGui.class));
         add(menu);
     }
 
